@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-//import './screen/BMICalcScreen.dart';
-import './screen/CounterProvider.dart';
+import './screen/BMICalcScreen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
@@ -14,8 +13,10 @@ class MyApp extends StatelessWidget {
       title: 'My Fit',
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      //home: BMICalcScreen(title: 'My Fit'),
-      home: CounterProvider(),
+      home: Scaffold(
+        appBar: AppBar(title: Text('My Fit Home')),
+        body: BMICalcScreen(),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

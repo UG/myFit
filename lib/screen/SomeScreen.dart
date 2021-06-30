@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../state/Counter.dart';
 import '../component/someComponent.dart';
 
-class CounterProvider extends HookWidget {
+class SomeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final count = useProvider(counterProvider);
