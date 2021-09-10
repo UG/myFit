@@ -6,30 +6,58 @@ final titleProvider = StateNotifierProvider<Title, String>((_) => Title());
 
 class Title extends StateNotifier<String> {
   Title() : super('foo bar buzz');
-  //void increment() => state++;
   void setTitle(arg) {
     state = arg;
   }
 }
 
 class TitleRiverPod extends HookWidget {
-  const TitleRiverPod({Key? key}) : super(key: key);
+  TitleRiverPod({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
+  void setTitle(val) {
+    inputText = val;
+  }
 
+  var inputText = "";
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     final title = useProvider(titleProvider);
-
     return Scaffold(
       body: Center(
-        child: Text(
-          '$title',
-          style: Theme.of(context).textTheme.headline4,
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read(titleProvider.notifier).setTitle('nekoneko'),
-        child: const Icon(Icons.add),
-      ),
+          child: Container(
+              width: screenWidth * 0.9,
+              child: Column(children: [
+                SizedBox(height: 20),
+                Center(
+                    child: Container(
+                        child: Text('$title',
+                            style: TextStyle(
+                              fontSize: 40,
+                            )))),
+                SizedBox(height: 20),
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    onChanged: setTitle,
+                    decoration: InputDecoration(
+                      labelText: '入力文字',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                SizedBox(
+                  height: 30,
+                  width: screenWidth * .5,
+                  child: ElevatedButton(
+                    child: const Text('文字変更', style: TextStyle(fontSize: 20)),
+                    onPressed: () {
+                      context.read(titleProvider.notifier).setTitle(inputText);
+                    },
+                  ),
+                ),
+              ]))),
     );
   }
 }
