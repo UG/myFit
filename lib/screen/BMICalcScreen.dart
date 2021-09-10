@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:myfit/util/validators.dart';
-import '../main.dart';
+//import '../main.dart';
 
 class BMICalcScreen extends StatefulWidget {
   @override
