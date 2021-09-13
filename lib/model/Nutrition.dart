@@ -1,5 +1,5 @@
-class nutrition {
-  String food_id;
+class Nutrition {
+  String foodId;
   // amino acid
   double leucine; // BCAA
   double valine; // BCAA
@@ -86,8 +86,8 @@ class nutrition {
   double waterSolubleDietaryFiber;
   double insolubleDietaryFiber;
 
-  nutrition({
-    required this.food_id,
+  Nutrition({
+    required this.foodId,
     this.leucine = 0.0,
     this.valine = 0.0,
     this.isoleucine = 0.0,
@@ -153,8 +153,8 @@ class nutrition {
     this.waterSolubleDietaryFiber = 0.0,
     this.insolubleDietaryFiber = 0.0,
   });
-  factory nutrition.frommap(Map<String, dynamic> json) => nutrition(
-      food_id: json["food_id"],
+  factory Nutrition.frommap(Map<String, dynamic> json) => Nutrition(
+      foodId: json["foodId"],
       leucine: json["leucine"],
       valine: json["valine"],
       isoleucine: json["isoleucine"],
@@ -221,7 +221,7 @@ class nutrition {
       insolubleDietaryFiber: json["insolubleDietaryFiber"]);
 
   Map<String, dynamic> toMap() => {
-        "food_id": food_id,
+        "foodId": foodId,
         "leucine": leucine,
         "valine": valine,
         "isoleucine": isoleucine,
