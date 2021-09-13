@@ -1,28 +1,28 @@
-class Nutrition {
-  int Food_id;
+class nutrition {
+  String food_id;
   // amino acid
-  double Leucine; // BCAA
-  double Valine; // BCAA
-  double Isoleucine; // BCAA
-  double Phenylalanine; // EAA
-  double Histidine; // EAA
-  double Lysine; // EAA
-  double Tryptophan; // EAA
-  double Methionine; // EAA
-  double Threonine; //EAA
-  double GlutamicAcid;
-  double Arginine;
-  double Glycine;
-  double Tyrosine;
-  double Alanine;
-  double AsparticAcid;
-  double Asparagine;
-  double Pyrrolysine;
-  double Proline;
-  double Glutamine;
-  double Serine;
-  double Selenocysteine;
-  double Cysteine;
+  double leucine; // BCAA
+  double valine; // BCAA
+  double isoleucine; // BCAA
+  double phenylalanine; // EAA
+  double histidine; // EAA
+  double lysine; // EAA
+  double tryptophan; // EAA
+  double methionine; // EAA
+  double threonine; //EAA
+  double glutamicAcid;
+  double arginine;
+  double glycine;
+  double tyrosine;
+  double alanine;
+  double asparticAcid;
+  double asparagine;
+  double pyrrolysine;
+  double proline;
+  double glutamine;
+  double serine;
+  double selenocysteine;
+  double cysteine;
 
   //Carbo
   double sugar;
@@ -86,30 +86,30 @@ class Nutrition {
   double waterSolubleDietaryFiber;
   double insolubleDietaryFiber;
 
-  Nutrition({
-    required this.Food_id,
-    this.Leucine = 0.0,
-    this.Valine = 0.0,
-    this.Isoleucine = 0.0,
-    this.Phenylalanine = 0.0,
-    this.Histidine = 0.0,
-    this.Lysine = 0.0,
-    this.Tryptophan = 0.0,
-    this.Methionine = 0.0,
-    this.Threonine = 0.0,
-    this.GlutamicAcid = 0.0,
-    this.Arginine = 0.0,
-    this.Glycine = 0.0,
-    this.Tyrosine = 0.0,
-    this.Alanine = 0.0,
-    this.AsparticAcid = 0.0,
-    this.Asparagine = 0.0,
-    this.Pyrrolysine = 0.0,
-    this.Proline = 0.0,
-    this.Glutamine = 0.0,
-    this.Serine = 0.0,
-    this.Selenocysteine = 0.0,
-    this.Cysteine = 0.0,
+  nutrition({
+    required this.food_id,
+    this.leucine = 0.0,
+    this.valine = 0.0,
+    this.isoleucine = 0.0,
+    this.phenylalanine = 0.0,
+    this.histidine = 0.0,
+    this.lysine = 0.0,
+    this.tryptophan = 0.0,
+    this.methionine = 0.0,
+    this.threonine = 0.0,
+    this.glutamicAcid = 0.0,
+    this.arginine = 0.0,
+    this.glycine = 0.0,
+    this.tyrosine = 0.0,
+    this.alanine = 0.0,
+    this.asparticAcid = 0.0,
+    this.asparagine = 0.0,
+    this.pyrrolysine = 0.0,
+    this.proline = 0.0,
+    this.glutamine = 0.0,
+    this.serine = 0.0,
+    this.selenocysteine = 0.0,
+    this.cysteine = 0.0,
     this.sugar = 0.0,
     this.monosaccharide = 0.0,
     this.oligosaccharide = 0.0,
@@ -153,30 +153,30 @@ class Nutrition {
     this.waterSolubleDietaryFiber = 0.0,
     this.insolubleDietaryFiber = 0.0,
   });
-  factory Nutrition.fromMap(Map<String, dynamic> json) => Nutrition(
-      Food_id: json["Food_id"],
-      Leucine: json["Leucine"],
-      Valine: json["Valine"],
-      Isoleucine: json["Isoleucine"],
-      Phenylalanine: json["Phenylalanine"],
-      Histidine: json["Histidine"],
-      Lysine: json["Lysine"],
-      Tryptophan: json["Tryptophan"],
-      Methionine: json["Methionine"],
-      Threonine: json["Threonine"],
-      GlutamicAcid: json["GlutamicAcid"],
-      Arginine: json["Arginine"],
-      Glycine: json["Glycine"],
-      Tyrosine: json["Tyrosine"],
-      Alanine: json["Alanine"],
-      AsparticAcid: json["AsparticAcid"],
-      Asparagine: json["Asparagine"],
-      Pyrrolysine: json["Pyrrolysine"],
-      Proline: json["Proline"],
-      Glutamine: json["Glutamine"],
-      Serine: json["Serine"],
-      Selenocysteine: json["Selenocysteine"],
-      Cysteine: json["Cysteine"],
+  factory nutrition.frommap(Map<String, dynamic> json) => nutrition(
+      food_id: json["food_id"],
+      leucine: json["leucine"],
+      valine: json["valine"],
+      isoleucine: json["isoleucine"],
+      phenylalanine: json["phenylalanine"],
+      histidine: json["histidine"],
+      lysine: json["lysine"],
+      tryptophan: json["tryptophan"],
+      methionine: json["methionine"],
+      threonine: json["threonine"],
+      glutamicAcid: json["glutamicAcid"],
+      arginine: json["arginine"],
+      glycine: json["glycine"],
+      tyrosine: json["tyrosine"],
+      alanine: json["alanine"],
+      asparticAcid: json["asparticAcid"],
+      asparagine: json["asparagine"],
+      pyrrolysine: json["pyrrolysine"],
+      proline: json["proline"],
+      glutamine: json["glutamine"],
+      serine: json["serine"],
+      selenocysteine: json["selenocysteine"],
+      cysteine: json["cysteine"],
       sugar: json["sugar"],
       monosaccharide: json["monosaccharide"],
       oligosaccharide: json["oligosaccharide"],
@@ -221,29 +221,29 @@ class Nutrition {
       insolubleDietaryFiber: json["insolubleDietaryFiber"]);
 
   Map<String, dynamic> toMap() => {
-        "Food_id": Food_id,
-        "Leucine": Leucine,
-        "Valine": Valine,
-        "Isoleucine": Isoleucine,
-        "Phenylalanine": Phenylalanine,
-        "Histidine": Histidine,
-        "Lysine": Lysine,
-        "Tryptophan": Tryptophan,
-        "Methionine": Methionine,
-        "Threonine": Threonine,
-        "GlutamicAcid": GlutamicAcid,
-        "Arginine": Arginine,
-        "Glycine": Glycine,
-        "Tyrosine": Tyrosine,
-        "Alanine": Alanine,
-        "AsparticAcid": AsparticAcid,
-        "Asparagine": Asparagine,
-        "Pyrrolysine": Pyrrolysine,
-        "Proline": Proline,
-        "Glutamine": Glutamine,
-        "Serine": Serine,
-        "Selenocysteine": Selenocysteine,
-        "Cysteine": Cysteine,
+        "food_id": food_id,
+        "leucine": leucine,
+        "valine": valine,
+        "isoleucine": isoleucine,
+        "phenylalanine": phenylalanine,
+        "histidine": histidine,
+        "lysine": lysine,
+        "tryptophan": tryptophan,
+        "methionine": methionine,
+        "threonine": threonine,
+        "glutamicAcid": glutamicAcid,
+        "arginine": arginine,
+        "glycine": glycine,
+        "tyrosine": tyrosine,
+        "alanine": alanine,
+        "asparticAcid": asparticAcid,
+        "asparagine": asparagine,
+        "pyrrolysine": pyrrolysine,
+        "proline": proline,
+        "glutamine": glutamine,
+        "serine": serine,
+        "selenocysteine": selenocysteine,
+        "cysteine": cysteine,
         "sugar": sugar,
         "monosaccharide": monosaccharide,
         "oligosaccharide": oligosaccharide,
