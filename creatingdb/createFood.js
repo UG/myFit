@@ -2,8 +2,6 @@ const sqlite3 = require("sqlite3");
 const { open } = require("sqlite");
 const fs = require("fs");
 const csv = require("csv");
-const { resolve } = require("path");
-const { count } = require("console");
 const dbFile = "./Nutrition.db";
 
 async function createFoodTable(db) {
