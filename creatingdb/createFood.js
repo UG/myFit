@@ -4,7 +4,16 @@ const fs = require("fs");
 const csv = require("csv");
 const dbFile = "./Nutrition.db";
 const srcFile = "./nutrition.csv";
-
+const tableKeys = new Array(
+  "id",
+  "name",
+  "calories",
+  "protein",
+  "fat",
+  "carbo",
+  "fiber",
+  "water"
+);
 async function createFoodTable(db) {
   return new Promise(async (resolve) => {
     const sql = `
@@ -15,7 +24,8 @@ async function createFoodTable(db) {
     protein real,
     fat real,
     carbo real,
-    fiber real
+    fiber real,
+    water real
     );`;
     await db.exec(sql);
     return resolve("complete creating table");
@@ -31,15 +41,16 @@ async function insertFood(db) {
           const insertArray = new Array(
             `'${elem[0]}'`,
             `'${elem[2]}'`,
-            parseFloat(elem[4].toString().replace(/-|Tr/i, "0.0")),
-            parseFloat(elem[7].toString().replace(/-|Tr/i, "0.0")),
-            parseFloat(elem[10].toString().replace(/-|Tr/i, "0.0")),
-            parseFloat(elem[11].toString().replace(/-|Tr/i, "0.0")),
-            parseFloat(elem[14].toString().replace(/-|Tr/i, "0.0"))
+            td(elem[4]),
+            td(elem[7]),
+            td(elem[10]),
+            td(elem[11]),
+            td(elem[14]),
+            td(elem[5])
           );
-          const upsert = `insert into Food(id,name,calories,protein,fat,carbo,fiber) values(${insertArray.join(
+          const upsert = `insert into Food(${tableKeys.join(
             ","
-          )}) on conflict(id) do nothing`;
+          )}) values(${insertArray.join(",")}) on conflict(id) do nothing`;
           await db.run(upsert);
         }
       }
@@ -54,6 +65,12 @@ async function countFoodRows(db) {
     const result = await db.get(`select count(id) from Food`);
     return resolve(result);
   });
+}
+
+function td(src) {
+  const str = src.toString().replace(/-|Tr/i, "0.0");
+  const r = parseFloat(str);
+  return r.toString();
 }
 
 const createFood = async () => {
