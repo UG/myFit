@@ -3,6 +3,7 @@ const { open } = require("sqlite");
 const fs = require("fs");
 const csv = require("csv");
 const dbFile = "./Nutrition.db";
+const srcFile = "./nutrition.csv";
 
 async function createFoodTable(db) {
   return new Promise(async (resolve) => {
@@ -22,7 +23,6 @@ async function createFoodTable(db) {
 }
 
 async function insertFood(db) {
-  const file = "./nutrition.csv";
   return new Promise(async (resolve) => {
     const parser = csv.parse(async (error, data) => {
       for (let a = 0; a < data.length; a++) {
@@ -45,7 +45,7 @@ async function insertFood(db) {
       }
       return resolve("insert complete");
     });
-    fs.createReadStream(file).pipe(parser);
+    fs.createReadStream(srcFile).pipe(parser);
   });
 }
 
