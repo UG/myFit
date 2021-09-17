@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import './screen/BMICalcScreen.dart';
 import './screen/titleRiverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:myfit/screen/SearchNutrition.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: Text('My Fit Home')),
         //body: BMICalcScreen(),
-        body: TitleRiverPod(),
+        body: SearchNutirition(),
       ),
       debugShowCheckedModeBanner: false,
     );
