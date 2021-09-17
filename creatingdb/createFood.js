@@ -12,7 +12,8 @@ const tableKeys = new Array(
   "fat",
   "carbo",
   "fiber",
-  "water"
+  "water",
+  "cholesterol"
 );
 async function createFoodTable(db) {
   return new Promise(async (resolve) => {
@@ -25,7 +26,8 @@ async function createFoodTable(db) {
     fat real,
     carbo real,
     fiber real,
-    water real
+    water real,
+    cholesterol real
     );`;
     await db.exec(sql);
     return resolve("complete creating table");
@@ -46,7 +48,8 @@ async function insertFood(db) {
             td(elem[10]),
             td(elem[11]),
             td(elem[14]),
-            td(elem[5])
+            td(elem[5]),
+            td(elem[9])
           );
           const upsert = `insert into Food(${tableKeys.join(
             ","

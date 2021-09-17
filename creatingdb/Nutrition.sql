@@ -66,6 +66,7 @@
       caprylic real, /*カプリル酸 8:0オクタン酸*/
       capric real, /*カプリン酸 10:0デカン酸*/
       oleic real, /*18:1 n-9オレイン酸*/
+      vaccenic real, /*18:1 n-7シス-バクセン酸 */
       linoleic real, /*18:2 n-6リノール酸*/
       cholesterol real, /*コレステロール*/
       starch real, /*デンプン*/

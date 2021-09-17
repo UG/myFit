@@ -11,6 +11,7 @@ const fiberFile = "./fiber.csv";
 
 const nutritionColumns = new Array(
   "food_id",
+  "ash",
   "sodium",
   "potassium",
   "calcium",
@@ -82,11 +83,11 @@ const fatColumns = new Array(
   "caprylic",
   "capric",
   "oleic",
-  "linoleic",
-  "cholesterol"
+  "linoleic"
 );
 
 const carboColumns = new Array(
+  "sugar",
   "starch",
   "glucose",
   "fructose",
@@ -96,16 +97,14 @@ const carboColumns = new Array(
   "lactose",
   "trehalose",
   "sorbitol",
-  "mannitol",
-  "sugar"
+  "mannitol"
 );
 
 const fiberColumns = new Array(
   "low_molecular",
   "water_soluble",
   "insoluble",
-  "resistant_starch",
-  "fiber_total real"
+  "resistant_starch"
 );
 
 async function allowForeignKey(db) {
@@ -186,8 +185,11 @@ async function createNutritionTable(db) {
       caprylic real, /*カプリル酸 8:0オクタン酸*/
       capric real, /*カプリン酸 10:0デカン酸*/
       oleic real, /*18:1 n-9オレイン酸*/
+      vaccenic real, /*18:1 n-7シス-バクセン酸 */
       linoleic real, /*18:2 n-6リノール酸*/
-      cholesterol real, /*コレステロール*/
+      n_3_linolenic real, /*18:3 n-3α‐リノレン酸*/
+      n_6_linolenic real, /*18:3 n-6γ‐リノレン酸*/
+      sugar real, /* 糖質量 */
       starch real, /*デンプン*/
       glucose real, /*ぶどう糖*/
       fructose real, /*果糖*/
@@ -198,12 +200,10 @@ async function createNutritionTable(db) {
       trehalose real, /*トレハロース*/
       sorbitol real, /*ソルビトール*/
       mannitol real,/*マンニトール*/
-      sugar real, /*糖質総量*/
-      low_molecular real, /*低分子量水溶性食物繊維 オリゴ糖など*/
       water_soluble real, /*水溶性食物繊維*/
       insoluble real, /*不溶性食物繊維*/
-      resistant_starch real, /*難消化性デンプン*/
-      fiber_total real /*食物繊維総量*/
+      low_molecular real, /*低分子量水溶性食物繊維 オリゴ糖など*/
+      resistant_starch real /*難消化性デンプン*/
     );
     `;
     await db.exec(sql);
@@ -220,6 +220,7 @@ async function insertNutrition(db) {
         if (a > 2) {
           const insertArray = new Array(
             `'${elem[0]}'`, //food_id
+            td(elem[18]), //灰分
             td(elem[19]), //ナトリウム
             td(elem[20]), //カリウム
             td(elem[21]), //カルシウム
@@ -327,11 +328,37 @@ async function updateFat(db) {
       for (let a = 0; a < data.length; a++) {
         const elem = data[a];
         if (a > 2) {
-          const insertArray = new Array();
+          const insertArray = new Array(
+            td(elem[7]), //飽和脂肪酸
+            td(elem[8]), //一価飽和脂肪酸
+            td(elem[9]), //多価不飽和脂肪酸
+            td(elem[10]), //omega3
+            td(elem[11]), //omega6
+            td(elem[12]), //酪酸
+            td(elem[13]), //ヘキサン酸
+            td(elem[14]), //ヘブタン酸
+            td(elem[15]), //オクタン酸
+            td(elem[16]), //デカン酸
+            td(elem[36]), // omega9
+            td(elem[37]), //バクセン酸
+            td(elem[44]), //リノール酸
+            td(elem[45]), //n-3リノレン酸
+            td(elem[46]) //n-6リノレン酸
+          );
+          let valueSet = "";
+          for (let b = 0; b < fatColumns.length; b++) {
+            valueSet += `${fatColumns[b]}=${insertArray[b]},`;
+          }
+          valueSet = valueSet.slice(0, -1);
+          const update = `update nutrition set ${valueSet} where food_id='${elem[0]}';`;
+          //console.log(update);
+          const result = await db.run(update);
+          //console.log(result);
         }
       }
     });
     fs.createReadStream(fatFile).pipe(parser);
+    resolve("fat update complete");
   });
 }
 
@@ -342,11 +369,34 @@ async function updateCarbo(db) {
       for (let a = 0; a < data.length; a++) {
         const elem = data[a];
         if (a > 2) {
-          const insertArray = new Array();
+          const insertArray = new Array(
+            td(elem[4]), //糖質量
+            td(elem[5]), //でん粉
+            td(elem[6]), //ぶどう糖
+            td(elem[7]), //果糖
+            td(elem[8]), //ガラクトース
+            td(elem[9]), //しょ糖
+            td(elem[10]), //麦芽糖
+            td(elem[11]), //乳糖
+            td(elem[12]), //トレハロース
+            //13
+            td(elem[14]), //ソルビトール
+            td(elem[15]) //マンニトール
+          );
+          let valueSet = "";
+          for (let b = 0; b < carboColumns.length; b++) {
+            valueSet += `${carboColumns[b]}=${insertArray[b]},`;
+          }
+          valueSet = valueSet.slice(0, -1);
+          const update = `update nutrition set ${valueSet} where food_id='${elem[0]}';`;
+          //console.log(update);
+          const result = await db.run(update);
+          //console.log(result);
         }
       }
     });
     fs.createReadStream(carboFile).pipe(parser);
+    resolve("carbo update complete");
   });
 }
 
@@ -357,11 +407,26 @@ async function updateFiber(db) {
       for (let a = 0; a < data.length; a++) {
         const elem = data[a];
         if (a > 2) {
-          const insertArray = new Array();
+          const insertArray = new Array(
+            td(elem[4]), //水溶性食物繊維
+            td(elem[5]), //不溶性食物繊維
+            td(elem[7]), //低分子量水溶性食物繊維
+            td(elem[10]) //難消化性デンプン
+          );
+          let valueSet = "";
+          for (let b = 0; b < fiberColumns.length; b++) {
+            valueSet += `${fiberColumns[b]}=${insertArray[b]},`;
+          }
+          valueSet = valueSet.slice(0, -1);
+          const update = `update nutrition set ${valueSet} where food_id='${elem[0]}';`;
+          //console.log(update);
+          const result = await db.run(update);
+          //console.log(result);
         }
       }
     });
     fs.createReadStream(fiberFile).pipe(parser);
+    return resolve("fiber update complete");
   });
 }
 
@@ -387,9 +452,9 @@ const createNutrition = async () => {
   console.log(await createNutritionTable(db));
   console.log(await insertNutrition(db));
   console.log(await updateAmino(db));
-  //console.log(await updateFat(db));
-  //console.log(await updateCarbo(db));
-  //console.log(await updateFiber(db));
+  console.log(await updateFat(db));
+  console.log(await updateCarbo(db));
+  console.log(await updateFiber(db));
   console.log(await countNutritionRows(db));
 };
 
