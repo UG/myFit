@@ -21,4 +21,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-assets: assets/image/myfit.jpg
+assets:
+  - assets/image/myfit.jpg
+  - assets/db/Nutrition.db
